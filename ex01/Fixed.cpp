@@ -3,7 +3,7 @@
 #include <cmath>
 
 /*
-    (1 << 8) means 2^8 in my code
+    (1 << this->_fractionalBits) means 2^(this->_fractionalBits) in my code
 */
 Fixed::Fixed()
 {
@@ -20,13 +20,13 @@ Fixed::Fixed(const Fixed &other)
 Fixed::Fixed(const int num)
 {
     std::cout << "Int constructor called" << std::endl;
-    this->_rawBits = num * ( 1 << 8 );
+    this->_rawBits = num * (1 << this->_fractionalBits);
 }
 
 Fixed::Fixed(const float num)
 {
     std::cout << "Float constructor called" << std::endl;
-    this->_rawBits = roundf(num * ( 1 << 8 ));
+    this->_rawBits = roundf(num * (1 << this->_fractionalBits));
 }
 
 int Fixed::getRawBits (void) const
@@ -43,18 +43,18 @@ Fixed& Fixed::operator=(const Fixed &other)
     std::cout << "Copy assignment operator called" << std::endl;
     if(this == &other)
         return (*this);
-    this->_rawBits = other.getRawBits();
+    this->_rawBits = other._rawBits;
     return (*this);
 }
 
 float Fixed::toFloat( void ) const
 {
-    return ((float)this->_rawBits /(1 << 8));
+    return ((float)this->_rawBits /(1 << this->_fractionalBits));
 }
 
 int Fixed::toInt( void ) const
 {
-    return (this->_rawBits /(1 << 8));
+    return (this->_rawBits /(1 << this->_fractionalBits));
 }
 
 void Fixed::setRawBits( int const raw )
