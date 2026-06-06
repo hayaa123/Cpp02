@@ -2,9 +2,6 @@
 #include <iostream>
 #include <cmath>
 
-/*
-    (1 << 8) means 2^8 in my code
-*/
 Fixed::Fixed()
 {
     this->_rawBits = 0;
