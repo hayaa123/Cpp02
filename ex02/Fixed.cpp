@@ -73,7 +73,8 @@ Fixed Fixed::operator*(const Fixed &other) const
 
 Fixed Fixed::operator/(const Fixed &other) const
 {
-    std::cout << this->toFloat() << " , " << other.toFloat() << std::endl;
+    if(other._rawBits == 0)
+        throw std::logic_error("Division by Zero!");
     return (Fixed(this->toFloat() / other.toFloat()));
 }
 
@@ -107,7 +108,7 @@ bool Fixed::operator!=(const Fixed &other) const
     return (this->_rawBits != other.getRawBits());
 }
 
-Fixed& Fixed::operator++()
+Fixed& Fixed::operator++(void)
 {
     this->_rawBits++;
     return (*this);
@@ -120,7 +121,7 @@ Fixed Fixed::operator++(int)
     return (temp);
 }
 
-Fixed& Fixed::operator--()
+Fixed& Fixed::operator--(void)
 {
     this->_rawBits--;
     return (*this);
